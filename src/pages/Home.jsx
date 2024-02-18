@@ -1,12 +1,8 @@
 import  { useEffect, useState } from 'react';
 import axios from 'axios';
-//import { useParams } from 'react-router-dom';
-//import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
-import {AiOutlineEdit} from "react-icons/ai";
-import { BsInfoCircle } from 'react-icons/bs';
-import {MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
+import {MdOutlineAddBox } from "react-icons/md";
 import BooksTable from '../components/home/BooksTable';
 import BooksCard from '../components/home/BooksCard';
 import { baseUrl } from '../../utils';
@@ -22,7 +18,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${baseUrl}/books/books`);
+        const response = await axios.get(`${baseUrl}`);
         console.log(response?.data)
         setBooks(response.data.data);
       } catch (error) {

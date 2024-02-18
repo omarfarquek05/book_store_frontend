@@ -15,10 +15,66 @@ const CreateBook = () => {
   const [loading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState("");
 
+   // State variables for error messages
+   const [titleError, setTitleError] = useState("");
+   const [emailError, setEmailError] = useState("");
+   const [authorError, setAuthorError] = useState("");
+   const [avatarError, setAvatarError] = useState("");
+   const [publishYearError, setPublishYearError]= useState("");
+   const [phoneError, setPhoneError] = useState("")
+
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSaveBook = async () => {
+  const handleSaveBook = async () => { 
+    // Check if any required fields are empty
+    if (!title) {
+      setTitleError("Title is required");
+      return;
+    } else {
+      setTitleError(""); // Clear the error message if title is not empty
+    }
+
+    if (!avatar) {
+      setAvatarError("avatar is required");
+      return;
+    } else {
+      setAvatarError(""); // Clear the error message if email is not empty
+    }
+
+    // Check if any required fields are empty
+    if (!publishYear) {
+      setPublishYearError("publish year is required");
+      return;
+    } else {
+      setPublishYearError(""); // Clear the error message if title is not empty
+    }
+
+    if (!email) {
+      setEmailError("Email is required");
+      return;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    } else {
+      setEmailError(""); // Clear the error message if email is not empty and valid
+    }
+   
+    if(!author){
+      setAuthorError("author is required")
+    }else {
+      setAuthorError("")
+    }
+    if(!phone){
+      setPhoneError("phone is required")
+      return;
+    } else if (!/^01\d{9}$/.test(phone)) {
+        setPhoneError("Phone must start with '01' and have 11 digits.");
+        return;
+    }else{
+      setPhoneError("")
+    }
+
     setLoading(true);
     try {
       const formData = new FormData();
@@ -29,7 +85,7 @@ const CreateBook = () => {
       formData.append("phone", phone);
       formData.append("avatar", avatar); // Append the file to FormData
 
-      await axios.post(`${baseUrl}/books`, formData, {
+      await axios.post(`${baseUrl}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Set content type to multipart/form-data for file upload
         },
@@ -45,25 +101,6 @@ const CreateBook = () => {
     }
   };
 
-{/*
-  const handleSaveBook = async () => {
-    const data = { title, email, phone, publishYear, author,avatar };
-    console.log(data);
-    setLoading(true);
-    
-    try {
-      await axios.post("http://localhost:8000/books", data);
-      setLoading(false);
-      enqueueSnackbar("Book Created successfully", { variant: "success" });
-      navigate("/");
-    } catch (error) {
-      setLoading(false);
-      // alert('An error happened. Please Check console');
-      enqueueSnackbar("Error", { variant: "error" });
-      console.log(error);
-    }
-  };
-   */}
   return (
     <div className="p-4">
       <BackButton />
@@ -79,8 +116,9 @@ const CreateBook = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border-2 border-gray-500 px-4 py-2 w-full"
+            className="border-2 border-gray-500 px-4 py-2 w-full" 
           />
+          {titleError && <span className="text-red-500">{titleError}</span>}
         </div>
 
         {/* email*/}
@@ -92,10 +130,10 @@ const CreateBook = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="border-2 border-gray-500 px-4 py-2 w-full"
           />
+          {emailError && <span className="text-red-500">{emailError}</span>}
         </div>
           
           {/* Avatar Input */}
-          
           <div className="my-4">
           <label className="text-xl mr-4 text-gray-500">Avatar</label>
           <input
@@ -103,6 +141,7 @@ const CreateBook = () => {
             onChange={(e) => setAvatar(e.target.files[0])} // Store the selected file
             className="border-2 border-gray-500 px-4 py-2 w-full"
           />
+          {avatarError && <span className="text-red-500">{avatarError}</span>}
         </div>
       
 
@@ -115,6 +154,7 @@ const CreateBook = () => {
             onChange={(e) => setAuthor(e.target.value)}
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
+          {authorError && <span className="bg-red-500">{authorError}</span>}
         </div>
 
         {/* Phone*/}
@@ -126,6 +166,7 @@ const CreateBook = () => {
             onChange={(e) => setPhone(e.target.value)}
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
+          {phoneError && <span className="bg-red-500">{phoneError}</span>}
         </div>
 
         {/* Publish Year*/}
@@ -137,6 +178,7 @@ const CreateBook = () => {
             onChange={(e) => setPublishYear(e.target.value)}
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
+          {publishYearError && <span className="bg-red-500">{publishYearError}</span>}
         </div>
 
         <button className="p-2 bg-indigo-500 text-white font-bold text-center m-8" onClick={handleSaveBook}>

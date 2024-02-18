@@ -26,7 +26,7 @@ const EditBook = () => {
     const getBook = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${baseUrl}/books/books/${id}`);
+        const response = await axios.get(`${baseUrl}/${id}`);
         const bookData = response.data.book; // Accessing the 'book' property
         console.log(bookData);
         setAuthor(bookData.author);
@@ -58,29 +58,18 @@ const EditBook = () => {
     formData.append("phone", phone);
     formData.append("avatar", avatar); // Append the file to FormData
 
-    //   Create a data object with all other fields
-    //   const data = { title, email, phone, publishYear, author };
-    //      data.append("avatar", avatar)
-    // If avatar is not an empty object, include it in the data object
-    //   if (avatar && typeof avatar !== 'object') {
-    //  formData.avatar = avatar;
-    //   }
-
     setLoading(true);
 
     try {
       // Send the PUT request with the data object
-      await axios.put(`${baseUrl}/books/${id}`, formData, {
+      await axios.put(`${baseUrl}/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      // Manually update the state of the avatar
-      //   if (formData.avatar) {
-      //     setAvatar(formData.avatar);
-      //  }
-      console.log(formData)
+      
+      //console.log(formData)
 
       setLoading(false);
       enqueueSnackbar("Book updated successfully", { variant: "success" });

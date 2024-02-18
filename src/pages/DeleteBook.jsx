@@ -17,7 +17,7 @@ const DeleteBook = () => {
   const  deleteBook = async()=> {
     setLoading(true);
     try {
-      await axios.delete(`${baseUrl}/books/books/${id}`);
+      await axios.delete(`${baseUrl}/${id}`);
       setLoading(false);
       enqueueSnackbar('Book Deleted successfully', { variant: 'success' });
       navigate('/');

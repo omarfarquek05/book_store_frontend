@@ -5,7 +5,7 @@ import ShowBook from './pages/ShowBook'
 import EditBook from './pages/EditBook'
 import DeleteBook from './pages/DeleteBook'
 import Home from './pages/Home'
-import Test from './components/Test'
+
 
 
 
@@ -21,7 +21,7 @@ function App() {
     <Route path='/books/edit/:id' element={<EditBook />} />
     <Route path='/books/delete/:id' element={<DeleteBook />} />
   </Routes> 
-  <Test/>
+  
     </>
   )
 }
