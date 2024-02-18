@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { baseUrl } from "../../utils";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -28,7 +29,7 @@ const CreateBook = () => {
       formData.append("phone", phone);
       formData.append("avatar", avatar); // Append the file to FormData
 
-      await axios.post("http://localhost:8000/books", formData, {
+      await axios.post(`${baseUrl}/books`, formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Set content type to multipart/form-data for file upload
         },

@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { baseUrl } from "../../utils";
 
 const EditBook = () => {
   const [title, setTitle] = useState("");
@@ -25,7 +26,7 @@ const EditBook = () => {
     const getBook = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:8000/books/${id}`);
+        const response = await axios.get(`${baseUrl}/books/books/${id}`);
         const bookData = response.data.book; // Accessing the 'book' property
         console.log(bookData);
         setAuthor(bookData.author);
@@ -69,7 +70,7 @@ const EditBook = () => {
 
     try {
       // Send the PUT request with the data object
-      await axios.put(`http://localhost:8000/books/${id}`, formData, {
+      await axios.put(`${baseUrl}/books/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -9,6 +9,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import {MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
 import BooksTable from '../components/home/BooksTable';
 import BooksCard from '../components/home/BooksCard';
+import { baseUrl } from '../../utils';
 
 const Home = () => {
 
@@ -21,7 +22,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:8000/books");
+        const response = await axios.get(`${baseUrl}/books/books`);
         console.log(response?.data)
         setBooks(response.data.data);
       } catch (error) {

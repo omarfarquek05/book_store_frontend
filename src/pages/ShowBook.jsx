@@ -14,7 +14,7 @@ import { FaBook } from "react-icons/fa";
 import { IoCallOutline } from "react-icons/io5";
 import { MdOutlineMoreTime } from "react-icons/md";
 import { BiTime } from "react-icons/bi";
-
+import { baseUrl } from "../../utils";
 
 const ShowBook = () => {
 
@@ -26,7 +26,7 @@ const ShowBook = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:8000/books/${id}`);
+        const response = await axios.get(`${baseUrl}/books/${id}`);
        // console.log(response.data)
         //setBook(response.data);
         setBook(response.data.book);
